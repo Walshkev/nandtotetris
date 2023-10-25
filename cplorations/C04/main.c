@@ -1,8 +1,8 @@
 /****************************************
  * C-ploration 4 for CS 271
  * 
- * [NAME] $YOUR_NAME$
- * [TERM] FALL $YEAR$
+ * [NAME] $Kevin walsh$
+ * [TERM] FALL $2023$
  * 
  ****************************************/
 #include "parser.h"
@@ -10,7 +10,7 @@
 int main(int argc, const char *argv[]){
 		
 
-	if(argc !=1){
+	if(argc !=2){
 	printf("Usage: %s [filename]\n", argv[0]);
 	exit(EXIT_FAILURE);
 	}
@@ -21,7 +21,6 @@ int main(int argc, const char *argv[]){
 	exit(EXIT_FAILURE);
 	}
 	parse(fin);
-
 	fclose(fin);		
 }
 

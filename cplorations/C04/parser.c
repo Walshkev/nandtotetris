@@ -2,7 +2,7 @@
  * C-ploration 4 for CS 271
  *
  * [NAME] $Kevin WalshE$
- * [TERM] FALL $YEAR$
+ * [TERM] FALL $2023$
  *
  ****************************************/
 #include "parser.h"
@@ -15,10 +15,12 @@
  *
  * returns: the stripped char* string
  */
+
+
 char *strip(char *s)
 {
-	char s_new[sizeof(s) + 2*sizeof(char)];
-	//char s_new[MAX_LINE_LENGTH];
+	char* s_new = malloc(strlen(s) + 1);
+	// char s_new[MAX_LINE_LENGTH];
 
 	int i = 0;
 	for (char *s2 = s; *s2; s2++)
@@ -27,21 +29,19 @@ char *strip(char *s)
 		{
 			if (*(s2 + 1) == '/')
 			{
-				continue;
+				break;
 			}
 		}
-		else if (*s2 != isspace(*s2))
+		else if (!isspace(*s2))
 		{
+			
 			s_new[i++] = *s2;
 		}
-		s_new[i] = '\0' ;
-		
-		strcpy(s, s_new);
-
-		// your code here
-
-		
 	}
+	s_new[i] = '\0';
+
+	strcpy(s, s_new);
+	
 	return s;
 }
 
@@ -67,5 +67,7 @@ void parse(FILE *file)
 		{
 			continue;
 		}
-		printf("%s ", line);
+		printf("%s\n", line );
+		
+	}
 }

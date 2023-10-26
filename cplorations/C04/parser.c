@@ -16,10 +16,9 @@
  * returns: the stripped char* string
  */
 
-
 char *strip(char *s)
 {
-	char* s_new = malloc(strlen(s) + 1);
+	char *s_new = malloc(strlen(s) + 1);
 	// char s_new[MAX_LINE_LENGTH];
 
 	int i = 0;
@@ -34,14 +33,14 @@ char *strip(char *s)
 		}
 		else if (!isspace(*s2))
 		{
-			
+
 			s_new[i++] = *s2;
 		}
 	}
 	s_new[i] = '\0';
 
 	strcpy(s, s_new);
-	
+
 	return s;
 }
 
@@ -67,7 +66,6 @@ void parse(FILE *file)
 		{
 			continue;
 		}
-		printf("%s\n", line );
-		
+		printf("%s\n", line);
 	}
 }

@@ -25,4 +25,5 @@ CHIP PC {
     Mux16(a=mux2out, b[0..15]=false , sel=reset , out =mux3out);
 
     Register(in=mux3out ,load=true, out= feedback, out= out );
+    
 }

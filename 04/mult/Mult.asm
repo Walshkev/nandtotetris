@@ -32,22 +32,28 @@ D;JEQ
 @0
 D=M
 
-
+// this is a label for the begining of the loop 
 (LOOP)
+// sets the value of D to  m[1]
 @1
 D=M
 
+//sets the value of m[2] to D+M[2]
 @2
 M=D+M
 
+//modify the value of m[0] to m[0]-1 and sets d to that value 
 @0
 M=M-1
 
+
 D=M 
 @LOOP
-// if d is greater than 1 then jump to the postion on loop 
+// if D is greater than 1 then jump to the postion on loop 
 D;JGT
 
+
+//infinate loop 
 (END)
 @END
 0;JMP

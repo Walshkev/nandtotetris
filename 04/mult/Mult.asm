@@ -53,7 +53,6 @@ D=M
 D;JGT
 
 
-//infinate loop 
 (END)
 @END
 0;JMP

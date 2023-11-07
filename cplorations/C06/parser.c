@@ -85,7 +85,6 @@ void parse(FILE *file)
 
 			extract_label(line, label);
 		}
-		
 
 		printf("%c  ", inst_type);
 		printf("%s\n", line);
@@ -146,11 +145,9 @@ char *extract_label(const char *line, char *label)
 		{
 			label[i] = *s2;
 			i++;
-			
 		}
 	label[i] = '\0';
 	strcpy(line, label);
 
-	return line;
+	return label;
 }
-

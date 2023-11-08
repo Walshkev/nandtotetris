@@ -66,6 +66,6 @@ struct instruction
         C_instruction c_instruunion;
     };
     enum instruction_type type;
+
     
-    /* data */
 };

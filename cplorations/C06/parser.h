@@ -41,9 +41,9 @@ enum instruction_type
 typedef struct C_instruction
 {
     opcode a : 1;
-    opcode comp : 2;
-    opcode dest : 8;
-    opcode jump : 11;
+    opcode comp : 6;
+    opcode dest : 3;
+    opcode jump : 3;
 
 } C_instruction;
 
@@ -51,7 +51,7 @@ typedef struct A_instruction
 {
     union
     {
-        hack_adder address : 15;
+        hack_adder address ;
         char *label;
     };
     bool is_addr;

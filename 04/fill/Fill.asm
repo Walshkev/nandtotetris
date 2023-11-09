@@ -20,18 +20,22 @@ D=A
 M=D
 
 (KeyPressed)
-
+// sets the value of D to M[KBD]
 @KBD
 D=M
+// jumps to black if D is greater than 0
 @Black
 D;JGT
+// jumps to white if D is equal to 0
 @White
 D;JEQ
 
-
+//jumps back to KeyPressed
 @keyPressed
 0;JMP
 
+//when black is called it sets the value of M[1] to -1 and jumps to switchColor
+// -1 represents black 1111111111111
 (Black)
 @1
 M=-1
@@ -39,31 +43,34 @@ M=-1
 0;JMP
 
 
-
+// when white is called it sets the value of M[1] to 0 and jumps to switchColor
 (White)
 @1
 M=0
 @switchColor
 0;JMP
 
+//when switch color is called it sets the value of D to M[1] 
 (switchColor)
 @1
 D=M 
 
+// sets the value of D and M[0] to A
 @0 
 A=M 
 M=D 
-
+//this incriments M and stores it in D 
 @0
 D=M+1
 @KBD
 D=A-D 
 
+//incriments A by 1 
 @0
 M=M+1
 A=M 
 
-
+// jumps to switchcolor if D (if D and A are the same edge of the screen) is greater than 0
 @switchColor
 D;JGT
 

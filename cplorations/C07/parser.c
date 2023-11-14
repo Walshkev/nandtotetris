@@ -6,6 +6,7 @@
  *
  ****************************************/
 #include "parser.h"
+#include "symtable.h"
 
 /* Function: strip
  * -------------
@@ -57,6 +58,8 @@ void parse(FILE *file)
 
 	// your code here
 	char line[MAX_LINE_LENGTH] = {0};
+	int line_num = 0 ; 
+	int instr_num =0 ; 
 
 	// char inst_type; // unsigned int line_num = 0;
 
@@ -72,6 +75,8 @@ void parse(FILE *file)
 
 		if (is_Atype(line))
 		{
+			line_num = line_num+1 ; 
+			instr_num++;
 			// inst_type = 'A';
 		}
 		else if (is_label(line))
@@ -79,15 +84,19 @@ void parse(FILE *file)
 			// inst_type = 'L';
 			char label[MAX_LABEL_LENGTH] = {0};
 			strcpy(line, extract_label(line, label));
+			symtable_insert(label,line_num );
 		}
 		else if (is_Ctype(line))
 		{
+			line_num++;
+			instr_num++;
 			// inst_type = 'C';
 		}
 
 		// printf("%c  ", inst_type);
 		// printf("%s\n", line);
 	}
+
 }
 
 bool is_Atype(const char *s)
@@ -141,6 +150,8 @@ char *extract_label(const char *line, char *label)
 			label[i] = *s2;
 			i++;
 		}
+
+	
 
 	return label;
 }

@@ -1,21 +1,21 @@
 #include "symtable.h"
 
-struct Symbol* hashArray[SYMBOL_TABLE_SIZE]; 
+Symbol* hashArray[SYMBOL_TABLE_SIZE]; 
 
 int hash(char *str)
 {
     int hash = 5381;
     int c;
-    while (c = *str++)
+    while ((c = *str++))
         hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
     hash %= SYMBOL_TABLE_SIZE;
     return hash;
 }
 
-void symtable_insert(char name,hack_addr adder) {
+void symtable_insert(char* name, hack_addr addr) {
 
-   struct Symbol *item = (struct Symbol*) malloc(sizeof(struct Symbol));
-   item->address = strdup(adder);  
+   Symbol *item = (Symbol*) malloc(sizeof(Symbol));
+   item->address = addr;  
    item->name = strdup(name);
 
    //get the hash 
@@ -32,7 +32,7 @@ void symtable_insert(char name,hack_addr adder) {
 	
    hashArray[hashIndex] = item;
 }
-struct Symbol *search(char *name) {
+Symbol *search(char *name) {
    //get the hash 
    int hashIndex = hash(name);  
 	
@@ -72,6 +72,7 @@ void symtable_print_labels() {
    for(i = 0; i<SYMBOL_TABLE_SIZE; i++) {
         if(hashArray[i] != NULL){
              printf("{%s,%d}\n",hashArray[i]->name,hashArray[i]->address);
+             printf("helo");
         }
    }
 } 

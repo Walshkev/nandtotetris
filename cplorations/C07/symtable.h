@@ -23,7 +23,7 @@ int hash(char *str);
 
 struct Symbol *symtable_find(char * key);
 
-void symtable_insert(char* name, hack_addr addr);
+void symtable_insert(char* name, hack_addr adder);
 
 void symtable_display_table();
 

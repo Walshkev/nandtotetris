@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "hash_map": "c",
+        "list": "c",
+        "vector": "c",
+        "xhash": "c",
+        "xstring": "c",
+        "xutility": "c"
+    }
+}

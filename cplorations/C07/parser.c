@@ -58,7 +58,7 @@ void parse(FILE *file)
 	// your code here
 	char line[MAX_LINE_LENGTH] = {0};
 
-	char inst_type; // unsigned int line_num = 0;
+	// char inst_type; // unsigned int line_num = 0;
 
 	while (fgets(line, sizeof(line), file))
 	{
@@ -72,21 +72,21 @@ void parse(FILE *file)
 
 		if (is_Atype(line))
 		{
-			inst_type = 'A';
+			// inst_type = 'A';
 		}
 		else if (is_label(line))
 		{
-			inst_type = 'L';
+			// inst_type = 'L';
 			char label[MAX_LABEL_LENGTH] = {0};
 			strcpy(line, extract_label(line, label));
 		}
 		else if (is_Ctype(line))
 		{
-			inst_type = 'C';
+			// inst_type = 'C';
 		}
 
-		printf("%c  ", inst_type);
-		printf("%s\n", line);
+		// printf("%c  ", inst_type);
+		// printf("%s\n", line);
 	}
 }
 

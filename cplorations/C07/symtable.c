@@ -69,7 +69,7 @@ void display() {
 
 void symtable_print_labels() {
    int i = 0;    
-   for(i = 0; i<SYMBOL_TABLE_SIZE; i++) {
+   for(i = 0; i<SYMBOL_TABLE_SIZE-1; i++) {
         if(hashArray[i] != NULL){
              printf("{%s,%d}\n",hashArray[i]->name,hashArray[i]->address);
              printf("helo");

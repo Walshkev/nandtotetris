@@ -84,7 +84,7 @@ void parse(FILE *file)
 			// inst_type = 'L';
 			char label[MAX_LABEL_LENGTH] = {0};
 			strcpy(line, extract_label(line, label));
-			symtable_insert(label,line_num );
+			symtable_insert(line,line_num);
 		}
 		else if (is_Ctype(line))
 		{

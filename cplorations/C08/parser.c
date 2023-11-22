@@ -66,6 +66,7 @@ void parse(FILE *file)
 	while (fgets(line, sizeof(line), file))
 	{
 		strip(line);
+		line_num = line_num+1 ; 
 		if (!*line)
 		{
 			continue;
@@ -75,7 +76,7 @@ void parse(FILE *file)
 
 		if (is_Atype(line))
 		{
-			line_num = line_num+1 ; 
+			
 			instr_num++;
 			// inst_type = 'A';
 		}
@@ -84,11 +85,13 @@ void parse(FILE *file)
 			// inst_type = 'L';
 			char label[MAX_LABEL_LENGTH] = {0};
 			strcpy(line, extract_label(line, label));
-			symtable_insert(line,line_num);
+			symtable_insert(line,instr_num);
+			 
+
 		}
 		else if (is_Ctype(line))
 		{
-			line_num++;
+		
 			instr_num++;
 			// inst_type = 'C';
 		}

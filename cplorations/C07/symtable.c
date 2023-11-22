@@ -1,5 +1,4 @@
 #include "symtable.h"
-#include "error.h"
 
 Symbol* hashArray[SYMBOL_TABLE_SIZE]; 
 
@@ -53,9 +52,8 @@ Symbol *symtable_find(char *name) {
       //wrap around the table
       hashIndex %= SYMBOL_TABLE_SIZE;
    }        
-   return NULL;     
-
-  
+	
+   return NULL;        
 }
 
 

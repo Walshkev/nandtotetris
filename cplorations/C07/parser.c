@@ -7,7 +7,6 @@
  ****************************************/
 #include "parser.h"
 #include "symtable.h"
-#include "error.h"
 
 /* Function: strip
  * -------------
@@ -83,17 +82,10 @@ void parse(FILE *file)
 		}
 		else if (is_label(line))
 		{
-			exit_program(EXIT_INVALID_LABEL, line_num, line);
 			inst_type = 'L';
 			char label[MAX_LABEL_LENGTH] = {0};
 			strcpy(line, extract_label(line, label));
-			if (symtable_find(label) != NULL)
-			{
-				exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, line);
-			}
-			else{
 			symtable_insert(line,instr_num);
-			}
 			 
 
 		}

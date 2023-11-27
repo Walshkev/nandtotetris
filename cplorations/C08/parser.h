@@ -15,6 +15,8 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include "symtable.h"
+#include "error.h"
 
 
 #define MAX_LINE_LENGTH 200

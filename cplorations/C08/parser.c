@@ -59,6 +59,7 @@ void parse(FILE *file)
 
 	// your code here
 	char line[MAX_LINE_LENGTH] = {0};
+	char label[MAX_LABEL_LENGTH] = {0};
 	int line_num = 0 ; 
 	int instr_num =0 ; 
 
@@ -66,9 +67,13 @@ void parse(FILE *file)
 
 	while (fgets(line, sizeof(line), file))
 	{
-		strip(line);
 		line_num = line_num+1 ; 
-		if (!*line)
+		if( line_num>MAX_INSTRUCTIONS){
+			exit_program(EXIT_TOO_MANY_INSTRUCTIONS, MAX_INSTRUCTIONS + 1);
+		}
+		strip(line);
+		
+		if (*line == '\0')
 		{
 			continue;
 		}
@@ -78,35 +83,41 @@ void parse(FILE *file)
 		if (is_Atype(line))
 		{
 			
-			instr_num++;
+			
 			inst_type = 'A';
+			
 		}
 		else if (is_label(line))
 		{
-			exit_program(EXIT_INVALID_LABEL, line_num, line);
 			inst_type = 'L';
-			char label[MAX_LABEL_LENGTH] = {0};
-			strcpy(line, extract_label(line, label));
-			if (symtable_find(label) != NULL)
-			{
-				exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, line);
+			
+			extract_label(line,label);
+			
+			if( !isalpha(*label)){
+				exit_program(EXIT_INVALID_LABEL, line_num, label);
 			}
-			else{
-			symtable_insert(line,instr_num);
+			else if (symtable_find(label) != NULL)
+				{
+				exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, label);
+				}
+				strcpy(line, label);
+				symtable_insert(label,instr_num);
+			
+				continue;
+			
 			}
-			 
-
-		}
 		else if (is_Ctype(line))
 		{
 		
-			instr_num++;
-			inst_type = 'C';
+			
+			inst_type ='C';
 		}
 
 		// printf("%c  ", inst_type);
 		// printf("%s\n", line);
+		
 		printf("%u: %c  %s\n", instr_num, inst_type, line);
+		instr_num++;
 	}
 
 }

@@ -2,17 +2,19 @@
 #define __ERROR_H__
 
 #include <stdarg.h> 
+#include <stdio.h>
+#include <stdlib.h>
+
 
 // All code in file
 enum exitcode   
 {
-/*
- * Error code 1 represents that given file does not exist.
- */
-    EXIT_INCORRECT_ARGUMENTS = 1,
-    EXIT_CANNOT_OPEN_FILE =2,
-    EXIT_INVALID_LABEL =3,
-    EXIT_SYMBOL_ALREADY_EXISTS =4 ,
+
+    EXIT_INCORRECT_ARGUMENTS =  1,
+    EXIT_CANNOT_OPEN_FILE  ,
+    EXIT_TOO_MANY_INSTRUCTIONS ,
+    EXIT_INVALID_LABEL ,
+    EXIT_SYMBOL_ALREADY_EXISTS  ,
 
 };
 

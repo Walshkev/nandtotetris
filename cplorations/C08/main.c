@@ -6,7 +6,7 @@
  *
  ****************************************/
 #include "parser.h"
-#include "symtable.h"
+// #include "symtable.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "error.h"
@@ -25,6 +25,7 @@ int main(int argc, const char *argv[])
 		exit_program(EXIT_CANNOT_OPEN_FILE, argv[1]);
 	}
 	parse(fin);
-	symtable_print_labels();
+	// symtable_print_labels();
 	fclose(fin);
+	return 0;
 }

@@ -40,4 +40,39 @@ CHIP CPU {
 
     PARTS:
     // Put your code here:
+
+
+    Not(in= instruction[15],out=notInstuction);
+    Mux16(a=notOutM, b= instruction, sel=notInstuction,out=Mux1 ); 
+
+    Or(a=notInstuction, b= instruction[5], out=intoA);
+    ARegister(in=Mux1,load=intoA,out=A, out[0..14]=addressM);
+
+    And(a=instruction[15],b=instruction[12],out=AorM);
+    Mux16(a=A,b=inM,sel=AorM, out=MuxAM);
+
+ALU(x=D,y=MuxAM,zx=instruction[11],nx=instruction[10],zy=instruction[9],ny=instruction[8],f=instruction[7],no=instruction[6],out=notOutM,out=outM,zr=zr,ng=ng);
+
+    And(a=instruction[15],b=instruction[4],out=intoD);
+    DRegister(in=notOutM, load=intoD,out=D);
+    
+    And(a=instruction[15],b=instruction[3],out=writeM);
+
+    Not(in=ng,out=notNg);
+    Not(in=zr,out=notZr);
+    And(a=instruction[15],b=instruction[0],out=jgt);
+    And(a=notNg,b=notZr,out=notNgandZR);
+    And(a=jgt,b=notNgandZR,out=bigAND1);
+
+    And(a=instruction[15],b=instruction[1],out=jeq);
+    And(a=jeq,b=zr,out= bigAND2);
+
+    And(a=instruction[15],b=instruction[2], out=jlt);
+    And(a=jlt,b=ng, out=bigAND3);
+
+    Or(a=bigAND1,b=bigAND2,out=big1or2);
+    Or(a=bigAND3,b=big1or2, out=theBigOr);
+
+    PC(in=A,load=theBigOr,inc=true,reset=reset,out[0..14]=pc);
+
 }

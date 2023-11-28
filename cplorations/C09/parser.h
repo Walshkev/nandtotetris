@@ -17,6 +17,7 @@
 #include <stdint.h>
 #include "symtable.h"
 #include "error.h"
+#include "hack.h"
 
 
 #define MAX_LINE_LENGTH 200
@@ -78,6 +79,9 @@ typedef struct instruction
 
     
 }instruction;
+
+
+void add_predefined_symbols();
 
 
 #endif

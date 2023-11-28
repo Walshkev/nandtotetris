@@ -178,3 +178,12 @@ char *extract_label(const char *line, char *label)
 
 	return label;
 }
+
+
+void add_predefined_symbols(){
+	
+
+
+
+
+}

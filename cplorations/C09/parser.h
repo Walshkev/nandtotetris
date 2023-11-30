@@ -52,7 +52,7 @@ enum instruction_type
 typedef struct C_instruction
 {
     opcode a : 1;
-    opcode comp : 6;
+    opcode comp : 7;
     opcode dest : 3;
     opcode jump : 3;
 

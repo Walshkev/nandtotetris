@@ -9,8 +9,6 @@
 // #include "symtable.h"
 // #include "error.h"
 
-
-
 /* Function: strip
  * -------------
  * remove whitespace and comments from a line
@@ -62,74 +60,72 @@ void parse(FILE *file)
 	// your code here
 	char line[MAX_LINE_LENGTH] = {0};
 	char label[MAX_LABEL_LENGTH] = {0};
-	int line_num = 0 ; 
-	int instr_num =0 ; 
+	int line_num = 0;
+	int instr_num = 0;
 
 	char inst_type; // unsigned int line_num = 0;
 
 	add_predefined_symbols();
-	
+
 	instruction instr;
-	
 
 	while (fgets(line, sizeof(line), file))
 	{
-		line_num = line_num+1 ; 
-		if( line_num>MAX_INSTRUCTIONS){
+		line_num = line_num + 1;
+		if (instr_num > MAX_INSTRUCTIONS)
+		{
 			exit_program(EXIT_TOO_MANY_INSTRUCTIONS, MAX_INSTRUCTIONS + 1);
 		}
 		strip(line);
-		
+
 		if (*line == '\0')
 		{
 			continue;
 		}
 
-		// cheack to see if it is a type c type and
+		// check to see if it is a type c type and
 
 		if (is_Atype(line))
 		{
-			if (!parse_A_instruction(line, &instr.instr.a_instruction)){
-   				 exit_program(EXIT_INVALID_A_INSTR, line_num, line);
- 				}
-				 instr.type = AType_instruction;
-			
+			if (!parse_A_instruction(line, &instr.instr.a_instruction))
+			{
+				exit_program(EXIT_INVALID_A_INSTR, line_num, line);
+			}
+			instr.type = AType_instruction;
+
 			inst_type = 'A';
-			
 		}
 		else if (is_label(line))
 		{
 			inst_type = 'L';
-			
-			extract_label(line,label);
-			
-			if( !isalpha(*label)){
+
+			extract_label(line, label);
+
+			if (!isalpha(*label))
+			{
 				exit_program(EXIT_INVALID_LABEL, line_num, label);
 			}
 			else if (symtable_find(label) != NULL)
-				{
+			{
 				exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, label);
-				}
-				strcpy(line, label);
-				symtable_insert(line,instr_num);
-			
-				continue;
-			
 			}
+			strcpy(line, label);
+			symtable_insert(line, instr_num);
+
+			continue;
+		}
 		else if (is_Ctype(line))
 		{
-		
-			
-			inst_type ='C';
+
+			inst_type = 'C';
 		}
 
 		// printf("%c  ", inst_type);
 		// printf("%s\n", line);
-		
-		//printf("%u: %c  %s\n", instr_num, inst_type, line);
+
+		// printf("%u: %c  %s\n", instr_num, inst_type, line);
 		instr_num++;
 	}
-
 }
 
 bool is_Atype(const char *s)
@@ -184,58 +180,43 @@ char *extract_label(const char *line, char *label)
 			i++;
 		}
 
-	
-
 	return label;
 }
 
-
-void add_predefined_symbols(){
-	int i =0;
-	for (i = 0; i < NUM_PREDEFINED_SYMBOLS; i++){
-		 predefined_symbol test = predefined_symbols[i];
+void add_predefined_symbols()
+{
+	int i = 0;
+	for (i = 0; i < NUM_PREDEFINED_SYMBOLS; i++)
+	{
+		predefined_symbol test = predefined_symbols[i];
 
 		symtable_insert(test.name, test.address);
 	}
 }
 
+bool parse_A_instruction(const char *line, A_instruction *instr)
+{
 
+	char *s = (char *)malloc(sizeof(line));
 
-bool parse_A_instruction(const char *line, A_instruction *instr){
-
-
-	char *s = (char*) malloc(sizeof(line));
-
-	strcpy(s,line+1);
-	char *s_end=NULL;
+	strcpy(s, line + 1);
+	char *s_end = NULL;
 
 	long result = strtol(s, &s_end, 10);
-	if (s==s_end)
+	if (s == s_end)
 	{
-		instr->operand.label = (char*)malloc(sizeof(line));
-		strcpy(instr->operand.label,s);
-		instr->is_addr=false;
+		instr->operand.label = (char *)malloc(sizeof(line));
+		strcpy(instr->operand.label, s);
+		instr->is_addr = false;
 	}
 	else if (*s_end != 0)
-		{
-		return false ;
-		}
-	else 
-		{
-			instr->operand.address=result;
-			instr->is_addr=true;
-		}
+	{
+		return false;
+	}
+	else
+	{
+		instr->operand.address = result;
+		instr->is_addr = true;
+	}
 	return true;
 }
-
-	
-
-
-
-
-
-	
-
-
-
-

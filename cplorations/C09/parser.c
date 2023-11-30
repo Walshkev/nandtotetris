@@ -6,8 +6,8 @@
  *
  ****************************************/
 #include "parser.h"
-#include "symtable.h"
-#include "error.h"
+// #include "symtable.h"
+// #include "error.h"
 
 
 
@@ -111,7 +111,7 @@ void parse(FILE *file)
 				exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, label);
 				}
 				strcpy(line, label);
-				symtable_insert(label,instr_num);
+				symtable_insert(line,instr_num);
 			
 				continue;
 			
@@ -192,7 +192,7 @@ char *extract_label(const char *line, char *label)
 
 void add_predefined_symbols(){
 	int i =0;
-	for (i = 0; i < NUM_PREDEFINED_SYMBOLS; ++i){
+	for (i = 0; i < NUM_PREDEFINED_SYMBOLS; i++){
 		 predefined_symbol test = predefined_symbols[i];
 
 		symtable_insert(test.name, test.address);
@@ -224,8 +224,6 @@ bool parse_A_instruction(const char *line, A_instruction *instr){
 		{
 			instr->operand.address=result;
 			instr->is_addr=true;
-
-
 		}
 	return true;
 }

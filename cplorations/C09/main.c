@@ -1,5 +1,5 @@
 /****************************************
- * C-ploration 7 for CS 271
+ * C-ploration 9 for CS 271
  *
  * [NAME] $Kevin walsh$
  * [TERM] FALL $2023$
@@ -7,8 +7,8 @@
  ****************************************/
 #include "parser.h"
 // #include "symtable.h"
-#include <stdio.h>
-#include <stdlib.h>
+// #include <stdio.h>
+// #include <stdlib.h>
 #include "error.h"
 
 int main(int argc, const char *argv[])

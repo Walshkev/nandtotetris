@@ -1,6 +1,6 @@
 #include "symtable.h"
-#include "error.h"
-#include "hack.h"
+// #include "error.h"
+// #include "hack.h"
 
 Symbol* hashArray[SYMBOL_TABLE_SIZE]; 
 
@@ -19,7 +19,7 @@ void symtable_insert(char* key, hack_addr addr) {
 
 
    
-   Symbol *item =  malloc(sizeof(Symbol));
+   Symbol *item =  (Symbol *)malloc(sizeof(Symbol));
    item->address = addr;  
    item->name = strdup(key);
 
@@ -29,7 +29,7 @@ void symtable_insert(char* key, hack_addr addr) {
 
    
    //move in array until an empty or deleted cell
-   while((hashArray[hashIndex] != NULL) && (hashArray[hashIndex]->name != NULL)) {
+   while((hashArray[hashIndex] != NULL) && (hashArray[hashIndex]->name )) {
       //go to next cell
       ++hashIndex;
 		
@@ -48,7 +48,7 @@ Symbol *symtable_find(char *name) {
    //move in array until an empty 
    while(hashArray[hashIndex] != NULL) {
 	
-      if(strcmp(hashArray[hashIndex]->name, name) ==0)
+      if(hashArray[hashIndex]->name== name)
          return hashArray[hashIndex]; 
 			
       //go to next cell

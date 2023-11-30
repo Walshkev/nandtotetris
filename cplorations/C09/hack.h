@@ -1,6 +1,7 @@
 
 #define NUM_PREDEFINED_SYMBOLS 23
 
+#include <stdint.h>
 
 
 

@@ -1,5 +1,6 @@
 #include "symtable.h"
 #include "error.h"
+#include "hack.h"
 
 Symbol* hashArray[SYMBOL_TABLE_SIZE]; 
 
@@ -16,6 +17,8 @@ int hash(char *str)
 
 void symtable_insert(char* key, hack_addr addr) {
 
+
+   
    Symbol *item =  malloc(sizeof(Symbol));
    item->address = addr;  
    item->name = strdup(key);
@@ -24,6 +27,7 @@ void symtable_insert(char* key, hack_addr addr) {
    
    int hashIndex = hash(key);
 
+   
    //move in array until an empty or deleted cell
    while((hashArray[hashIndex] != NULL) && (hashArray[hashIndex]->name != NULL)) {
       //go to next cell

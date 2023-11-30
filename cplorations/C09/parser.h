@@ -18,6 +18,7 @@
 #include "symtable.h"
 #include "error.h"
 #include "hack.h"
+#include "parser.h"
 
 
 #define MAX_LINE_LENGTH 200
@@ -63,7 +64,8 @@ typedef struct A_instruction
     {
         hack_adder address ;
         char *label;
-    };
+    }operand;
+    
     bool is_addr;
 
 } A_instruction;
@@ -74,7 +76,7 @@ typedef struct instruction
     {
         A_instruction a_instruction;
         C_instruction c_instruunion;
-    };
+    } instr;
     enum instruction_type type;
 
     
@@ -82,6 +84,8 @@ typedef struct instruction
 
 
 void add_predefined_symbols();
+
+bool parse_A_instruction(const char *line, A_instruction *instr);
 
 
 #endif

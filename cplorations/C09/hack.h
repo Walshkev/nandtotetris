@@ -1,4 +1,3 @@
-#include <cstdint>
 
 #define NUM_PREDEFINED_SYMBOLS 23
 
@@ -7,11 +6,6 @@
 
 typedef enum symbol_id
 {
-    SYM_SP     =     0,
-    SYM_LCL    =     1,
-    SYM_ARG    =    2,
-    SYM_THIS   =     3,
-    SYM_THAT   =     4,
     SYM_R0     =     0,
     SYM_R1     =     1,
     SYM_R2     =     2,
@@ -28,14 +22,20 @@ typedef enum symbol_id
     SYM_R13    =    13,
     SYM_R14    =    14,
     SYM_R15    =    15,
+    SYM_SP     =     0,
+    SYM_LCL    =     1,
+    SYM_ARG    =    2,
+    SYM_THIS   =     3,
+    SYM_THAT   =     4,
     SYM_SCREEN = 16384,
     SYM_KBD    = 24576
+
 }symbol_id;
 
 
 typedef struct predefined_symbol
 {
-char *name ;
+char name[sizeof(char)*10] ;
 int16_t address;
 
 }predefined_symbol;
@@ -43,11 +43,6 @@ int16_t address;
 
 static const predefined_symbol predefined_symbols[NUM_PREDEFINED_SYMBOLS] = {
 
-    {"SP",SYM_SP},
-    {"LCL",SYM_LCL}, 
-    {"ARG",SYM_ARG},  
-    {"THIS" ,SYM_THIS}, 
-    {"THAT",SYM_THAT}, 
     {"R0",SYM_R0},   
     {"R1",SYM_R1},    
     {"R2",SYM_R2},  
@@ -64,7 +59,12 @@ static const predefined_symbol predefined_symbols[NUM_PREDEFINED_SYMBOLS] = {
     {"R13",SYM_R13},  
     {"R14",SYM_R14},  
     {"R15",SYM_R15},  
+    {"SP",SYM_SP},
+    {"LCL",SYM_LCL}, 
+    {"ARG",SYM_ARG},  
+    {"THIS" ,SYM_THIS}, 
+    {"THAT",SYM_THAT},
     {"SCREEN",SYM_SCREEN},  
-    {"KBD",SYM_KBD},  
+    {"KBD",SYM_KBD} 
     
 };

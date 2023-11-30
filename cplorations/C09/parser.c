@@ -9,6 +9,8 @@
 #include "symtable.h"
 #include "error.h"
 
+
+
 /* Function: strip
  * -------------
  * remove whitespace and comments from a line
@@ -65,6 +67,11 @@ void parse(FILE *file)
 
 	char inst_type; // unsigned int line_num = 0;
 
+	add_predefined_symbols();
+	
+	instruction instr;
+	
+
 	while (fgets(line, sizeof(line), file))
 	{
 		line_num = line_num+1 ; 
@@ -82,7 +89,10 @@ void parse(FILE *file)
 
 		if (is_Atype(line))
 		{
-			
+			if (!parse_A_instruction(line, &instr.instr.a_instruction)){
+   				 exit_program(EXIT_INVALID_A_INSTR, line_num, line);
+ 				}
+				 instr.type = AType_instruction;
 			
 			inst_type = 'A';
 			
@@ -116,7 +126,7 @@ void parse(FILE *file)
 		// printf("%c  ", inst_type);
 		// printf("%s\n", line);
 		
-		printf("%u: %c  %s\n", instr_num, inst_type, line);
+		//printf("%u: %c  %s\n", instr_num, inst_type, line);
 		instr_num++;
 	}
 
@@ -181,9 +191,53 @@ char *extract_label(const char *line, char *label)
 
 
 void add_predefined_symbols(){
+	int i =0;
+	for (i = 0; i < NUM_PREDEFINED_SYMBOLS; ++i){
+		 predefined_symbol test = predefined_symbols[i];
+
+		symtable_insert(test.name, test.address);
+	}
+}
+
+
+
+bool parse_A_instruction(const char *line, A_instruction *instr){
+
+
+	char *s = (char*) malloc(sizeof(line));
+
+	strcpy(s,line+1);
+	char *s_end=NULL;
+
+	long result = strtol(s, &s_end, 10);
+	if (s==s_end)
+	{
+		instr->operand.label = (char*)malloc(sizeof(line));
+		strcpy(instr->operand.label,s);
+		instr->is_addr=false;
+	}
+	else if (*s_end != 0)
+		{
+		return false ;
+		}
+	else 
+		{
+			instr->operand.address=result;
+			instr->is_addr=true;
+
+
+		}
+	return true;
+}
+
 	
 
 
 
 
-}
+
+	
+
+
+
+

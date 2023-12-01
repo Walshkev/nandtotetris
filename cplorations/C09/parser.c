@@ -180,6 +180,7 @@ char *extract_label(const char *line, char *label)
 			i++;
 		}
 
+	label[i] = '\0';
 	return label;
 }
 
@@ -203,7 +204,7 @@ bool parse_A_instruction(const char *line, A_instruction *instr)
 	char *s_end = NULL;
 
 	long result = strtol(s, &s_end, 10);
-	if (s == s_end)
+	if ( s == s_end)
 	{
 		instr->operand.label = (char *)malloc(sizeof(line));
 		strcpy(instr->operand.label, s);

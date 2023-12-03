@@ -198,7 +198,7 @@ void add_predefined_symbols()
 bool parse_A_instruction(const char *line, A_instruction *instr)
 {
 
-	char *s = (char *)malloc(sizeof(line));
+	char *s = (char *)malloc(strlen(line));
 
 	strcpy(s, line + 1);
 	char *s_end = NULL;
@@ -206,7 +206,7 @@ bool parse_A_instruction(const char *line, A_instruction *instr)
 	long result = strtol(s, &s_end, 10);
 	if ( s == s_end)
 	{
-		instr->operand.label = (char *)malloc(sizeof(line));
+		instr->operand.label = (char *)malloc(strlen(line));
 		strcpy(instr->operand.label, s);
 		instr->is_addr = false;
 	}

@@ -33,7 +33,7 @@ void symtable_insert(char* name, hack_addr adder);
 
 void symtable_display_table();
 
-void symtable_print_labels();
+void symtable_print_labels();fsaf
 
 
 #endif

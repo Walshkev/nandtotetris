@@ -87,5 +87,7 @@ void add_predefined_symbols();
 
 bool parse_A_instruction(const char *line, A_instruction *instr);
 
+void parse_C_instruction(char *line, C_instruction *instr);
+
 
 #endif

@@ -221,3 +221,17 @@ bool parse_A_instruction(const char *line, A_instruction *instr)
 	}
 	return true;
 }
+
+void parse_C_instruction(char *line, C_instruction *instr){
+	
+	const char s[2]= ";";
+	const char equal[2]="=";
+	
+	char *temp_value;
+	char *jump;
+	temp_value = strtok(line , s);
+	jump=strtok(NULL , s);
+
+
+
+}

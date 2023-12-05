@@ -18,6 +18,8 @@
  * returns: the stripped char* string
  */
 
+#define MAX_INSTRUCTION_COUNT 30000
+
 char *strip(char *s)
 {
 	char *s_new = malloc(strlen(s) + 1);
@@ -54,7 +56,7 @@ char *strip(char *s)
  *
  * returns: nothing
  */
-void parse(FILE *file)
+int parse(FILE *file, instruction *instructions)
 {
 
 	// your code here
@@ -62,8 +64,6 @@ void parse(FILE *file)
 	char label[MAX_LABEL_LENGTH] = {0};
 	int line_num = 0;
 	int instr_num = 0;
-
-	char inst_type; // unsigned int line_num = 0;
 
 	add_predefined_symbols();
 
@@ -93,11 +93,17 @@ void parse(FILE *file)
 			}
 			instr.type = AType_instruction;
 
-			inst_type = 'A';
+			if (instr.instr.a_instruction.is_addr)
+			{
+				printf("A: %d\n", instr.instr.a_instruction.operand.address);
+			}
+			else
+			{
+				printf("A: %s\n", instr.instr.a_instruction.operand.label);
+			}
 		}
 		else if (is_label(line))
 		{
-			inst_type = 'L';
 
 			extract_label(line, label);
 
@@ -116,16 +122,35 @@ void parse(FILE *file)
 		}
 		else if (is_Ctype(line))
 		{
+			char tmp_line[MAX_LABEL_LENGTH] = {0};
+			strcpy(tmp_line, line); 
 
-			inst_type = 'C';
+			parse_C_instruction(tmp_line, &instr.instr.c_instruction);
+			if (instr.instr.c_instruction.dest == DEST_INVALID)
+			{
+				exit_program(EXIT_INVALID_C_DEST, line_num, line);
+			}
+			if (instr.instr.c_instruction.comp == COMP_INVALID)
+			{
+				exit_program(EXIT_INVALID_C_COMP, line_num, line);
+			}
+			if (instr.instr.c_instruction.jump == JMP_INVALID)
+			{
+				exit_program(EXIT_INVALID_C_JUMP, line_num, line);
+			}
+
+			instr.type = CType_instruction;
+			printf("C: d=%d, c=%d, j=%d\n", instr.instr.c_instruction.dest, instr.instr.c_instruction.comp, instr.instr.c_instruction.jump);
 		}
 
 		// printf("%c  ", inst_type);
 		// printf("%s\n", line);
 
 		// printf("%u: %c  %s\n", instr_num, inst_type, line);
-		instr_num++;
+		instructions[instr_num++] = instr;
 	}
+
+	return instr_num;
 }
 
 bool is_Atype(const char *s)
@@ -204,7 +229,7 @@ bool parse_A_instruction(const char *line, A_instruction *instr)
 	char *s_end = NULL;
 
 	long result = strtol(s, &s_end, 10);
-	if ( s == s_end)
+	if (s == s_end)
 	{
 		instr->operand.label = (char *)malloc(strlen(line));
 		strcpy(instr->operand.label, s);
@@ -222,16 +247,28 @@ bool parse_A_instruction(const char *line, A_instruction *instr)
 	return true;
 }
 
-void parse_C_instruction(char *line, C_instruction *instr){
-	
-	const char s[2]= ";";
-	const char equal[2]="=";
-	
-	char *temp_value;
-	char *jump;
-	temp_value = strtok(line , s);
-	jump=strtok(NULL , s);
+void parse_C_instruction(char *line, C_instruction *instr)
+{
+	char *token = NULL;
 
+	char *jump = NULL;
+	char *dest = NULL;
+	char *comp = NULL;
 
+	token = strtok(line, ";");
+	jump = strtok(NULL, "");
+	dest = strtok(token, "=");
+	comp = strtok(NULL, "");
 
+	if (comp == NULL)
+	{
+		comp = dest;
+		dest = NULL;
+	}
+
+	int a = 0;
+	instr->jump = str_to_jumpid(jump);
+	instr->dest = str_to_destid(dest);
+	instr->comp = str_to_compid(comp, &a);
+	instr->a = a;
 }

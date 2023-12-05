@@ -94,35 +94,35 @@ typedef enum dest_id
 typedef enum comp_id
 {
     COMP_INVALID = -1,
-    COMP_0 = 0b101010,
-    COMP_1 = 0b111111,
-    COMP_neg1 = 0b111010,
-    COMP_D = 0b001100,
-    COMP_A = 0b110000,
-    COMP_notD = 0b001101,
-    COMP_notA = 0b110001,
-    COMP_negD = 0b001111,
-    COMP_negA = 0b110011,
-    COMP_Dplus1 = 0b011111,
-    COMP_Aplus1 = 0b110111,
-    COMP_Dmin1 = 0b001110,
-    COMP_Amin1 = 0b110010,
-    COMP_DplusA = 0b000010,
-    COMP_DminA = 0b010011,
-    COMP_AminD = 0b000111,
-    COMP_DandA = 0b000000,
-    COMP_DorA = 0b010101,
+    COMP_0 = 42,
+    COMP_1 = 63,
+    COMP_neg1 = 58,
+    COMP_D = 12,
+    COMP_A = 48,
+    COMP_notD = 13,
+    COMP_notA = 49,
+    COMP_negD = 15,
+    COMP_negA = 51,
+    COMP_Dplus1 = 31,
+    COMP_Aplus1 = 55,
+    COMP_Dmin1 = 14,
+    COMP_Amin1 = 50,
+    COMP_DplusA = 2,
+    COMP_DminA = 19,
+    COMP_AminD = 7,
+    COMP_DandA = 0,
+    COMP_DorA = 21,
 
-    COMP_M = 0b110000,
-    COMP_notM = 0b110001,
-    COMP_negM = 0b110011,
-    COMP_Mplus1 = 0b110111,
-    COMP_Mmin1 = 0b110010,
-    COMP_DplusM = 0b000010,
-    COMP_DminM = 0b010011,
-    COMP_MminD = 0b010011,
-    COMP_DandM = 0b000000,
-    COMP_DorM = 0b010101,
+    COMP_M = 48,
+    COMP_notM = 49,
+    COMP_negM = 51,
+    COMP_Mplus1 = 55,
+    COMP_Mmin1 = 50,
+    COMP_DplusM = 2,
+    COMP_DminM = 19,
+    COMP_MminD = 7,
+    COMP_DandM = 0,
+    COMP_DorM = 21,
 } comp_id;
 
 static inline jump_id str_to_jumpid(const char *s)
@@ -332,7 +332,7 @@ static inline comp_id str_to_compid(const char *s, int *a)
     {
         id = COMP_MminD;
         *a = 1;
-    }else if (strcmp(s, "M&D") == 0)
+    }else if (strcmp(s, "D&M") == 0)
     {
         id = COMP_DandM;
         *a = 1;

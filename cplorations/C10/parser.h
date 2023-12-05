@@ -33,7 +33,7 @@ char *strip(char *s);
 
 char *extract_label(const char *line, char *label);
 
-void parse(FILE *file);
+
 
 bool is_Atype(const char *);
 
@@ -75,7 +75,7 @@ typedef struct instruction
     union
     {
         A_instruction a_instruction;
-        C_instruction c_instruunion;
+        C_instruction c_instruction;
     } instr;
     enum instruction_type type;
 
@@ -88,6 +88,8 @@ void add_predefined_symbols();
 bool parse_A_instruction(const char *line, A_instruction *instr);
 
 void parse_C_instruction(char *line, C_instruction *instr);
+
+int parse(FILE * file, instruction *instructions);
 
 
 #endif

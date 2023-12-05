@@ -11,6 +11,8 @@
 // #include <stdlib.h>
 #include "error.h"
 
+#define MAX_INSTRUCTION_COUNT 30000
+
 int main(int argc, const char *argv[])
 {
 
@@ -24,8 +26,11 @@ int main(int argc, const char *argv[])
 	{
 		exit_program(EXIT_CANNOT_OPEN_FILE, argv[1]);
 	}
-	parse(fin);
-	symtable_print_labels();
+	
+	instruction *instructions = (instruction*)malloc(MAX_INSTRUCTION_COUNT * sizeof(instruction));
+
+	parse(fin, instructions);
+	// symtable_print_labels();
 	fclose(fin);
 	
 }

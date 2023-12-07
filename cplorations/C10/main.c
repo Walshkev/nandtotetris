@@ -26,8 +26,8 @@ int main(int argc, const char *argv[])
 	{
 		exit_program(EXIT_CANNOT_OPEN_FILE, argv[1]);
 	}
-	
-	instruction *instructions = (instruction*)malloc(MAX_INSTRUCTION_COUNT * sizeof(instruction));
+
+	instruction *instructions = (instruction *)malloc(MAX_INSTRUCTION_COUNT * sizeof(instruction));
 
 	parse(fin, instructions);
 	// symtable_print_labels();

@@ -91,5 +91,7 @@ void parse_C_instruction(char *line, C_instruction *instr);
 
 int parse(FILE * file, instruction *instructions);
 
+//void assemble(const char * file_name, instruction* instructions, int num_instructions);
+
 
 #endif

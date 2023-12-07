@@ -254,7 +254,7 @@ void parse_C_instruction(char *line, C_instruction *instr)
 	char *jump = NULL;
 	char *dest = NULL;
 	char *comp = NULL;
-
+//d-1;jmp 
 	token = strtok(line, ";");
 	jump = strtok(NULL, "");
 	dest = strtok(token, "=");
@@ -272,3 +272,27 @@ void parse_C_instruction(char *line, C_instruction *instr)
 	instr->comp = str_to_compid(comp, &a);
 	instr->a = a;
 }
+
+
+// void assemble(const char * file_name, instruction* instructions, int num_instructions)
+// {
+// }
+
+opcode instruction_to_opcode(C_instruction instr)
+{
+	opcode op = 0;
+	op |= (7 << 13); // Set the three most significant bits to 111
+
+	op |= (instr.a << 12); // Set the a bit
+
+	op |= (instr.comp << 6); // Set the comp bits
+
+	op |= (instr.dest << 3); // Set the dest bits
+
+	op |= instr.jump; // Set the jump bits
+
+	return op;
+}
+
+	
+

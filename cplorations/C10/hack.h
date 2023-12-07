@@ -1,6 +1,25 @@
 
 #define NUM_PREDEFINED_SYMBOLS 23
 
+
+#define OPCODE_TO_BINARY(opcode) \
+    (opcode & 0x8000 ? '1' : '0'), \
+    (opcode & 0x4000 ? '1' : '0'), \
+    (opcode & 0x2000 ? '1' : '0'), \
+    (opcode & 0x1000 ? '1' : '0'), \
+    (opcode & 0x0800 ? '1' : '0'), \
+    (opcode & 0x0400 ? '1' : '0'), \
+    (opcode & 0x0200 ? '1' : '0'), \
+    (opcode & 0x0100 ? '1' : '0'), \
+    (opcode & 0x0080 ? '1' : '0'), \
+    (opcode & 0x0040 ? '1' : '0'), \
+    (opcode & 0x0020 ? '1' : '0'), \
+    (opcode & 0x0010 ? '1' : '0'), \
+    (opcode & 0x0008 ? '1' : '0'), \
+    (opcode & 0x0004 ? '1' : '0'), \
+    (opcode & 0x0002 ? '1' : '0'), \
+    (opcode & 0x0001 ? '1' : '0')
+
 #include <stdint.h>
 
 typedef enum symbol_id
@@ -94,7 +113,7 @@ typedef enum dest_id
 typedef enum comp_id
 {
     COMP_INVALID = -1,
-    COMP_0 = 42,
+    COMP_0 = 0b101010,
     COMP_1 = 63,
     COMP_neg1 = 58,
     COMP_D = 12,
@@ -304,44 +323,58 @@ static inline comp_id str_to_compid(const char *s, int *a)
     {
         id = COMP_M;
         *a = 1;
-    }else if (strcmp(s, "!M") == 0)
+    }
+    else if (strcmp(s, "!M") == 0)
     {
         id = COMP_notM;
         *a = 1;
-    }else if (strcmp(s, "-M") == 0)
+    }
+    else if (strcmp(s, "-M") == 0)
     {
         id = COMP_negM;
         *a = 1;
-    }else if (strcmp(s, "M+1") == 0)
+    }
+    else if (strcmp(s, "M+1") == 0)
     {
         id = COMP_Mplus1;
         *a = 1;
-    }else if (strcmp(s, "M-1") == 0)
+    }
+    else if (strcmp(s, "M-1") == 0)
     {
         id = COMP_Mmin1;
         *a = 1;
-    }else if (strcmp(s, "D+M") == 0)
+    }
+    else if (strcmp(s, "D+M") == 0)
     {
         id = COMP_DplusM;
         *a = 1;
-    }else if (strcmp(s, "D-M") == 0)
+    }
+    else if (strcmp(s, "D-M") == 0)
     {
         id = COMP_DminM;
         *a = 1;
-    }else if (strcmp(s, "M-D") == 0)
+    }
+    else if (strcmp(s, "M-D") == 0)
     {
         id = COMP_MminD;
         *a = 1;
-    }else if (strcmp(s, "D&M") == 0)
+    }
+    else if (strcmp(s, "D&M") == 0)
     {
         id = COMP_DandM;
         *a = 1;
-    }else if (strcmp(s, "D|M") == 0)
+    }
+    else if (strcmp(s, "D|M") == 0)
     {
         id = COMP_DorM;
         *a = 1;
     }
 
     return id;
-    
 };
+
+
+
+
+
+

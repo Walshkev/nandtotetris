@@ -296,19 +296,20 @@ void assemble(const char *file_name, instruction *instructions, int num_instruct
 			}
 			else
 			{
-				char* label = instr.instr.a_instruction.operand.label;
+				char *label = instr.instr.a_instruction.operand.label;
 
-				Symbol* symbol = symtable_find(label);
+				Symbol *symbol = symtable_find(label);
 				if (symbol != NULL)
 				{
 					op = symbol->address;
 				}
 				else
 				{
-				op= 
-
+					symtable_insert(label, variable_address);
+					op = variable_address;
+					variable_address++;
 				}
-			
+
 				free(label);
 			}
 		}
@@ -317,8 +318,10 @@ void assemble(const char *file_name, instruction *instructions, int num_instruct
 			op = instruction_to_opcode(instr.instr.c_instruction);
 		}
 
-		printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c", OPCODE_TO_BINARY(op));
+		fprintf(fout, "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n", OPCODE_TO_BINARY(op));
 	}
+
+	fclose(fout);
 }
 
 opcode instruction_to_opcode(C_instruction instr)

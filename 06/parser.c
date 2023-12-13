@@ -286,7 +286,6 @@ void assemble(const char *file_name, instruction *instructions, int num_instruct
 	for (int i = 0; i < num_instructions; i++)
 	{
 		instruction instr = instructions[i];
-
 		opcode op;
 		if (instr.type == AType_instruction)
 		{
@@ -297,7 +296,6 @@ void assemble(const char *file_name, instruction *instructions, int num_instruct
 			else
 			{
 				char *label = instr.instr.a_instruction.operand.label;
-
 				Symbol *symbol = symtable_find(label);
 				if (symbol != NULL)
 				{
